@@ -1,0 +1,44 @@
+﻿@model Snip.Models.User
+
+@{
+    ViewBag.Title = "My Snips";
+}
+
+<h2>My Snips</h2>
+@if (Model.CreatedSnippets.Count > 0)
+{
+    <ul>
+    @foreach (var snip in Model.CreatedSnippets)
+    {
+        <li>
+        @Html.ActionLink(snip.GetDisplayName(), Mvc.Snippet.Display(snip.Id)):
+        @{ Html.RenderPartial(Mvc.Shared.Views._SnipInfo, snip); }
+        [@Html.ActionLink("edit", Mvc.Snippet.Edit(snip.Id))]
+        [@Html.ActionLink("delete", Mvc.Snippet.Delete(snip.Id), new { @class = "deleteLink" })]</li>
+    }
+    </ul>
+    <p class="download-archive"><i class="icon-download-alt"></i> @Html.ActionLink("Download an archive of all your snips", Mvc.User.Archive("SnipArchive-" + StringUtils.GetAliasFromQualifiedName(User.Identity.Name) + ".zip"))</p>
+}
+else
+{
+    <p>No snips for you!</p>
+}
+@section Scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            $(".deleteLink").click(function () {
+            var link = this;
+                $.ajax({
+                    type: 'POST',
+                    url: link.href,
+                    data: { ajax: true },
+                    success: function () {
+                        $(link).parent().fadeOut('fast');
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
+}

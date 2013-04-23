@@ -1,0 +1,40 @@
+﻿@model Stats
+@{
+    ViewBag.Title = "Stats";
+}
+<h2>About</h2>
+
+<p>
+    Snip is a simple site for sharing code or other text snippets quickly, with a short link ideal for chats (just like an internal http://pastebin.com).
+    Snippets are private, and only accessible through a random link.
+    For public, archived, searchable snippets (e.g. how to read a file in C#), please use <a href="http://answer">//answer</a> instead.
+</p>
+
+<p>
+    Snip was created by @Html.AliasLink("iano").
+</p>
+
+<h2>Stats</h2>
+
+<table>
+    <tr>
+        <th>Total snips</th>
+        <td>@Model.TotalSnipCount.ToString("#,##0")</td>
+    </tr>
+    <tr>
+        <th>Total snip views</th>
+        <td>@Model.TotalViewCount.ToString("#,##0")</td>
+    </tr>
+    <tr>
+        <th>Total users</th>
+        <td>@Model.TotalUserCount.ToString("#,##0")</td>
+    </tr>
+    <tr>
+        <th>Average snips/user</th>
+        <td>@Model.AverageSnipsPerUser.ToString("#,##0.00")</td>
+    </tr>
+    <tr>
+        <th>Average views/snip</th>
+        <td>@Model.AverageViewsPerSnip.ToString("#,##0.00")</td>
+    </tr>
+</table>

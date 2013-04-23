@@ -1,0 +1,253 @@
+﻿html, body
+{
+    background:#ccc;
+    margin:0;
+    height:100%;
+}
+
+body, pre, input, textarea, select
+{
+    font-family:Consolas, "Courier New", monospace;
+    font-size:12px;
+}
+
+p, ul, ol
+{
+    margin:20px 0 0 0;
+}
+
+#wrap
+{
+    min-height:100%;
+    margin:0 auto -20px;
+}
+
+#bar
+{
+    background:#333;
+    border-bottom:solid 1px #666;
+}
+    #bar:after
+    {
+        content: ".";
+        display: block;
+        clear: both;
+        visibility: hidden;
+        line-height: 0;
+        height: 0;
+    }
+    
+header
+{
+    float:left;
+}
+    header h1
+    {
+        margin:0 0 0 20px;
+        line-height:30px;
+    }
+        header h1 a
+        {
+            color:White;
+            text-decoration:none;
+        }
+
+nav
+{
+    float:right;
+}
+    nav ul
+    {
+        font-size:0;
+        list-style:none;
+        margin:0;
+    }
+        nav ul li
+        {
+            display:inline-block;
+            font-size:12px;
+            margin:0;
+            padding:0;
+        }
+            nav ul li a
+            {
+                color:White;
+                display:block;
+                padding:0 20px;
+                border-left:solid 1px #666;
+                line-height:30px;
+            }
+            nav ul li:first-child a
+            {
+                text-decoration: none;
+                border:none;
+            }
+                nav ul li a small
+                {
+                    font-size:100%;
+                    color:#999;
+                }
+
+#page
+{
+    background:white;
+    padding:10px 20px 20px 20px;
+    margin:0 20px;
+}
+
+footer, .push
+{
+    height:20px;
+}
+
+footer
+{
+    text-align:center;
+    color:#666;
+    font-size:.8em;
+    line-height:20px;   
+}
+    footer .presenceIcon
+    {
+        width:12px;
+        height:12px;
+    }
+    
+#Title
+{
+    width:100%;   
+}
+
+#Content
+{
+    width:100%;
+    height:400px;
+    overflow:auto;
+}
+
+#submit
+{
+    border:solid 1px #ccc;
+    background:#eee;
+    padding:10px 20px;
+    cursor:pointer;
+}
+    #submit:hover
+    {
+        background:#ddd;
+    }
+    #submit:active
+    {
+        background:#ccc;
+    }
+    
+#url, #urlLink
+{
+    display:none;
+}
+
+.field-validation-error
+{
+    color:Red;
+    padding:0 5px;
+    display:inline-block;
+    margin-top:5px;
+}
+
+.input-validation-error
+{
+    background:#fff5f5;
+}
+
+.presenceIcon
+{
+    position:relative;
+    top:3px;
+}
+
+.download-archive
+{
+    margin-top:40px;
+}
+
+.timeago
+{
+    border-bottom:dotted 1px black;
+}
+
+.editor-block
+{
+    margin-bottom:5px;
+}
+    .editor-label
+    {
+        margin:20px 0 10px 0;
+    }
+
+    input, textarea, select {
+        padding:5px;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    input[type=checkbox]
+    {
+        position:relative;
+        top:2px;
+        margin-right:10px;
+    }
+
+.prettyprint
+{
+    padding:0 !important;
+    border:none !important;
+}
+
+.prettyprint ol.linenums li
+{
+    border:none !important;
+    padding-left:0 !important;
+}
+
+.prettyprint ol.linenums li > * 
+{
+    font-size: 12px !important;
+    font-style: normal;
+    font-weight: normal;
+}
+
+.prettyprint ol.linenums
+{
+    list-style-type:none !important;
+    padding:0 !important;
+    padding-left:60px !important;
+    position:relative;
+    background:white url(Images/linebg.png) repeat-y;
+}
+
+.prettyprint ol.linenums > li:before 
+{
+  content: counter(customlistcounter);
+  counter-increment: customlistcounter;
+  width: 50px;
+  text-align:right;
+  padding-right:3px;
+  position:absolute;
+  left:0;
+}
+
+.prettyprint ol.linenums:first-child 
+{
+  counter-reset: customlistcounter;
+}
+
+.prettyprint .nocode
+{
+    color:Black;
+}
+
+th
+{
+    text-align:left;
+}

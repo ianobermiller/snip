@@ -1,0 +1,108 @@
+﻿@model Snippet
+@{
+    ViewBag.Title = "New";
+}
+
+<p>
+    Snip is a simple site for sharing code or other text snippets quickly, with a short link ideal for chats (just like an internal http://pastebin.com).
+    Snippets are private, and only accessible through a random link.
+    For public, archived, searchable snippets (e.g. how to read a file in C#), please use <a href="http://answer">//answer</a> instead.
+</p>
+
+@using (Html.BeginForm(Mvc.Snippet.Add(), FormMethod.Post))
+{
+    @Html.ValidationSummary(true, "Snippet creation unsuccessful. Please correct the errors and try again.")
+    
+    <h3>Snippet</h3>
+    
+    @Html.EditorBlockFor(m => m.Content, hideLabel: true)
+
+    <h3>Optional settings</h3>
+    
+    @Html.EditorBlockFor(m => m.Title)
+    @Html.EditorBlockFor(m => m.Id)
+    @Html.EditorBlockFor(m => m.ExpirationInMinutes, dropDownItems: new[] { 
+        new SelectListItem() { Value = "-1", Text = "never" },
+        new SelectListItem() { Value = "10", Text = "10 minutes" },
+        new SelectListItem() { Value = "60", Text = "1 hour" },
+        new SelectListItem() { Value = "1440", Text = "1 day" },
+        new SelectListItem() { Value = "43200", Text = "1 month" } })
+    @Html.EditorBlockFor(m => m.ShouldHighlight)
+    
+    <p>
+        <input id="submit" type="submit" value="Save snippet" />
+        <a id="urlLink"></a>
+        <input id="url" type="text" />
+    </p>
+}
+
+@section Scripts
+{
+    <script type="text/javascript" src="@Links.Scripts.jquery_cssclone_js"></script>
+    <script type="text/javascript">
+
+        (function ($) {
+            $.fn.resizeToContent = function () {
+                var span = $('<span></span>');
+                span.text(this.val());
+                this.after(span);
+                span.css(this.css());
+                span.css('width', '');
+                var spanWidth = span.width();
+                span.remove();
+                this.width(spanWidth);
+                return this;
+            };
+        })(jQuery);
+
+        $(function () {
+            if (window.clipboardData) {
+                $("#Content").val(window.clipboardData.getData('Text'));
+            }
+
+            $("#Content").focus().select();
+
+            var form = $("form");
+
+            form.append($("<input type='hidden' name='ajax' />"));
+
+            var submit = $("#submit");
+
+            $("#url").focus(function () {
+                this.select();
+                if (window.clipboardData) {
+                    window.clipboardData.setData("text", this.value);
+                    var span = $('<span style="display:none">Copied to clipboard</span>');
+                    $(this).after(span);
+                    span.fadeIn();
+                    setTimeout(function () {
+                        span.fadeOut();
+                    }, 1000);
+                }
+            });
+
+            form.submit(function () {
+                var validator = form.data('validator');
+                validator.checkForm();
+                if (form.valid()) {
+                    var oldVal = submit.val();
+                    submit.val("Saving...");
+                    $.ajax({
+                        type: 'POST',
+                        url: "@Url.Action(Mvc.Snippet.Add())",
+                        data: form.serializeArray(),
+                        success: function (data) {
+                            $("#urlLink").attr('href', data.url).text(data.url).fadeIn();
+                            $("#url").val(data.url).resizeToContent().fadeIn();
+                        },
+                        complete: function () {
+                            submit.val(oldVal);
+                        }
+                    });
+                }
+                return false;
+            });
+        });
+
+    </script>
+}

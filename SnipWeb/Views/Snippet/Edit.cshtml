@@ -1,0 +1,49 @@
+﻿@model Snip.Models.Snippet
+
+@if (Model != null)
+{
+    ViewBag.Title = Model.Title.OrIfEmpty(Model.Id) + " - Edit";
+}
+else
+{
+    ViewBag.Title = "Snippet not found";
+    <p>Snippet does not exist  or you do not have permission to edit it.</p>
+    return;
+}
+
+<h2>@Model.GetDisplayName()</h2>
+
+<p>
+    @{ Html.RenderPartial(Mvc.Shared.Views._SnipInfo, Model); }
+    [@Html.ActionLink("delete", Mvc.Snippet.Delete(Model.Id))]
+</p>
+
+@using (Html.BeginForm(Mvc.Snippet.Edit(), FormMethod.Post))
+{
+    @Html.ValidationSummary(true, "Snippet edit unsuccessful. Please correct the errors and try again.")
+        
+    @Html.EditorBlockFor(m => m.Content, hideLabel: true)
+
+    <h3>Optional settings</h3>
+    
+    @Html.EditorBlockFor(m => m.Title)
+
+    @Html.EditorBlockFor(m => m.ExpirationInMinutes, dropDownItems: new[] {
+        new SelectListItem() { Value = "0", Text = "no change" },
+        new SelectListItem() { Value = "-1", Text = "never" },
+        new SelectListItem() { Value = "10", Text = "10 minutes" },
+        new SelectListItem() { Value = "60", Text = "1 hour" },
+        new SelectListItem() { Value = "1440", Text = "1 day" },
+        new SelectListItem() { Value = "43200", Text = "1 month" } })
+
+    @Html.EditorBlockFor(m => m.ShouldHighlight)
+
+    <input type="hidden" name="Id" value="@Model.Id" />
+    @Html.HiddenFor(m => m.Created)
+    @Html.HiddenFor(m => m.Creator)
+    @Html.HiddenFor(m => m.Expiration)
+    
+    <p>
+        <input id="submit" type="submit" value="Edit snippet" />
+    </p>
+}

@@ -1,0 +1,17 @@
+﻿@model Snippet
+
+Posted @Model.Created.ToAgo()
+@if (Model.Modified != Model.Created)
+{
+    @:and modified @Model.Modified.ToAgo()
+}
+by @Html.AliasLink(Model.Creator),
+@if (Model.Expiration != null)
+{
+    @:expires @Model.Expiration.Value.ToAgo(),
+}
+else
+{
+    @:never expires,   
+}
+@Model.ViewCount views
