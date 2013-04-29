@@ -38,12 +38,11 @@ namespace Snip.Models
 
         public DateTime LastView { get; set; }
 
-        [Display(Name = "Syntax highlighting enabled?")]
-        public bool ShouldHighlight { get; set; }
+        public Language Language { get; set; }
 
         public Snippet()
         {
-            ShouldHighlight = true;
+            this.Language = Language.Auto;
         }
 
         public string GetDisplayName()

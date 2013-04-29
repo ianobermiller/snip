@@ -156,9 +156,9 @@ namespace Snip
         public static MvcHtmlString ToAgo(this DateTime date)
         {
             return MvcHtmlString.Create(string.Format(
-                "<abbr class='timeago' title='{0}Z'>{1} UTC</abbr>",
+                "<abbr title='{0}Z'>{1}</abbr>",
                 date.ToString("s"),
-                date));
+                date.ToRelative()));
         }
     }
 }

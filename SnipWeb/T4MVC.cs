@@ -316,6 +316,8 @@ namespace Links {
         private const string URLPATH = "~/Scripts";
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+        public static readonly string highlight_pack_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/highlight.pack.min.js") ? Url("highlight.pack.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/highlight.pack.js") : Url("highlight.pack.js")+"?"+T4Extensions.TimestampString(URLPATH + "/highlight.pack.js");
+                      
         public static readonly string jquery_cssclone_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.cssclone.min.js") ? Url("jquery.cssclone.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery.cssclone.js") : Url("jquery.cssclone.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery.cssclone.js");
                       
         public static readonly string jquery_timeago_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.timeago.min.js") ? Url("jquery.timeago.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery.timeago.js") : Url("jquery.timeago.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery.timeago.js");
@@ -368,6 +370,7 @@ namespace Links {
         }
     
         public static readonly string Site_css = Url("Site.css")+"?"+T4Extensions.TimestampString(URLPATH + "/Site.css");
+        public static readonly string vs_css = Url("vs.css")+"?"+T4Extensions.TimestampString(URLPATH + "/vs.css");
     }
 
 }

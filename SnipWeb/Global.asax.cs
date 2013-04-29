@@ -90,7 +90,7 @@ namespace Snip
         {
             using (var db = new SnipContext())
             {
-                foreach (var snip in db.Snippets.Where(s => s.Expiration < DateTime.UtcNow))
+               foreach (var snip in db.Snippets.Where(s => s.Expiration < DateTime.UtcNow))
                 {
                     db.Snippets.Remove(snip);
                 }

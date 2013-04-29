@@ -142,7 +142,7 @@ namespace Snip.Controllers
                         snippet.Modified = now;
                         snippet.Content = modifiedSnippet.Content;
                         snippet.Title = modifiedSnippet.Title;
-                        snippet.ShouldHighlight = modifiedSnippet.ShouldHighlight;
+                        snippet.Language = modifiedSnippet.Language;
 
                         if (modifiedSnippet.ExpirationInMinutes > 0)
                         {

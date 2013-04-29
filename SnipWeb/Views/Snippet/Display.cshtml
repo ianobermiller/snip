@@ -18,7 +18,6 @@ else
 
 <p>
     @{ Html.RenderPartial(Mvc.Shared.Views._SnipInfo, Model); }
-    [<a href="javascript:;" id="selectAll">select all</a>]
     @if (canEdit)
     {
         @:[@Html.ActionLink("edit", Mvc.Snippet.Edit(Model.Id))]
@@ -26,73 +25,12 @@ else
     }
 </p>
 
-<pre class="highlight" style="display:none">
-@if (Model.ShouldHighlight)
-{
-@:@Model.Content
-}
-else
-{
-    foreach (var line in Model.Content.Split('\n'))
-    {
-<span class="nocode">@line.Replace("\r", "")</span>
-    }
-}
-</pre>
-
-<p><small>Tip: you can select and copy text; don't worry about the line numbers, they won't show up.</small></p>
+<pre class="snippet"><code class="@(Model.Language == Language.None ? "no-highlight" : "") @(Model.Language == Language.Auto || Model.Language == Language.None ? "" : "language-" + Model.Language.ToString().ToLowerInvariant())">@Model.Content</code></pre>
 
 @section Scripts
 {
-    <script type="text/javascript" src="http://balupton.github.com/jquery-syntaxhighlighter/prettify/prettify.min.js"></script>
-    <script type="text/javascript" src="http://balupton.github.com/jquery-syntaxhighlighter/scripts/jquery.syntaxhighlighter.js"></script>
+    <script src="@Links.Scripts.highlight_pack_js"></script>
     <script type="text/javascript">
-        $(function () {
-
-            $.SyntaxHighlighter.init({
-                'theme': 'vs'
-            });
-
-            $("pre").show();
-
-            $(".highlight").bind('copy', function (e) {
-                var selectedHtml = document.selection.createRange().htmlText;
-                var cleaned = selectedHtml.replace(/<\/li>/gi, "\n").replace(/<[^>]*>/g, "");
-
-                replaceSelectedHtml(cleaned);
-            });
-
-            $('#selectAll').click(function () {
-                var range = $('body').get()[0].createTextRange();
-                range.moveToElementText($('.highlight').get()[0]);
-                range.select();
-            });
-
-            function replaceSelectedHtml(newSelectedHtml) {
-                var body = $('body');
-                var newSelection = $("<pre>").css({
-                    position: 'absolute',
-                    left: '-10000px',
-                    top: '-10000px'
-                });
-
-                var originalRange = document.selection.createRange();
-
-                newSelection.html(newSelectedHtml);
-
-                body.append(newSelection);
-
-                var newRange = body.get()[0].createTextRange();
-                newRange.moveToElementText(newSelection.get()[0]);
-                newRange.select();
-
-                setTimeout(function () {
-                    newSelection.remove();
-                    if (originalRange.text != '') {
-                        originalRange.select();
-                    }
-                }, 0);
-            }
-        });
+        hljs.initHighlightingOnLoad();
     </script>
 }

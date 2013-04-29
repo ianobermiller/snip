@@ -5,7 +5,7 @@
     height:100%;
 }
 
-body, pre, input, textarea, select
+body, pre, input, textarea, select, code
 {
     font-family:Consolas, "Courier New", monospace;
     font-size:12px;
@@ -14,6 +14,10 @@ body, pre, input, textarea, select
 p, ul, ol
 {
     margin:20px 0 0 0;
+}
+
+li {
+    margin:10px 0 0 0;
 }
 
 #wrap
@@ -91,7 +95,7 @@ nav
 #page
 {
     background:white;
-    padding:10px 20px 20px 20px;
+    padding:10px 30px 20px 30px;
     margin:0 20px;
 }
 
@@ -161,8 +165,7 @@ footer
 
 .presenceIcon
 {
-    position:relative;
-    top:3px;
+    vertical-align:middle;
 }
 
 .download-archive
@@ -170,7 +173,7 @@ footer
     margin-top:40px;
 }
 
-.timeago
+abbr
 {
     border-bottom:dotted 1px black;
 }
@@ -250,4 +253,8 @@ footer
 th
 {
     text-align:left;
+}
+
+.snippet {
+    margin-top:30px;
 }
